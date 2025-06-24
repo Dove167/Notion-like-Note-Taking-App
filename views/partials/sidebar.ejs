@@ -1,0 +1,16 @@
+<div id="sidebar">
+  <div style="padding: 12px 0; border-bottom: 1px solid var(--border-color);">
+    <h3 style="margin: 0 0 12px 0; color: var(--secondary-color);">Workspace</h3>
+    <div class="page-item" onclick="window.location.href='/notes'">All Notes</div>
+    <div class="page-item" onclick="window.location.href='/notes/new'">New Note</div>
+  </div>
+  
+  <div style="padding: 12px 0;">
+    <h3 style="margin: 12px 0; color: var(--secondary-color);">Pages</h3>
+    <% notes.forEach(note => { %>
+      <div class="page-item" onclick="window.location.href='/notes/<%= note.id %>'">
+        <%= note.title %>
+      </div>
+    <% }) %>
+  </div>
+</div>

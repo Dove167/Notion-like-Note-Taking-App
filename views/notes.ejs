@@ -1,0 +1,27 @@
+<h1>All Notes</h1>
+
+<div style="margin-bottom: 24px;">
+  <input 
+    type="text" 
+    placeholder="Search notes..." 
+    style="padding: 8px 12px; border-radius: 4px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-color); width: 300px;"
+    value="<%= searchTerm %>"
+    oninput="this.form.submit()"
+    name="searchTerm"
+  >
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px;">
+  <% notes.forEach(note => { %>
+    <div style="background: var(--hover-color); border-radius: 8px; padding: 16px; cursor: pointer;" onclick="window.location.href='/notes/<%= note.id %>'">
+      <h3 style="margin: 0 0 8px 0;"><%= note.title %></h3>
+      <p style="color: var(--secondary-color); margin: 0; font-size: 0.9rem;">
+        <%= note.content.replace(/<[^>]*>/g, '').substring(0, 100) %>
+        <%= note.content.length > 100 ? '...' : '' %>
+      </p>
+      <p style="color: var(--secondary-color); margin: 8px 0 0 0; font-size: 0.8rem;">
+        <%= note.timestamp.toLocaleString() %>
+      </p>
+    </div>
+  <% }) %>
+</div>

@@ -1,0 +1,58 @@
+<input 
+  type="text" 
+  class="note-title" 
+  value="<%= note.title %>" 
+  onchange="updateTitle(this.value)"
+>
+
+<div class="toolbar">
+  <button onclick="formatText('bold')"><strong>B</strong></button>
+  <button onclick="formatText('italic')"><em>I</em></button>
+  <button onclick="formatText('underline')"><u>U</u></button>
+  <button onclick="addBlock('heading')">H</button>
+  <button onclick="addBlock('bullet')">•</button>
+  <button onclick="addBlock('number')">1.</button>
+  <button onclick="addBlock('todo')">☐</button>
+</div>
+
+<div id="editor">
+  <%- note.content %>
+</div>
+
+<button class="theme-toggle" onclick="toggleTheme()">
+  <span id="theme-icon"></span>
+</button>
+
+<script src="/js/editor.js"></script>
+<script>
+  function updateTitle(newTitle) {
+    const noteId = window.location.pathname.split('/')[2];
+    fetch(`/notes/${noteId}/title`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ title: newTitle })
+    });
+  }
+  
+  function setThemeIcon(theme) {
+    document.getElementById('theme-icon').textContent =
+      theme === 'dark' ? '🌙' : '☀️';
+  }
+
+  function toggleTheme() {
+    const currentTheme = document.body.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    document.body.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    setThemeIcon(newTheme);
+  }
+
+  // Set theme on load
+  document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.body.setAttribute('data-theme', savedTheme);
+    setThemeIcon(savedTheme);
+  });
+</script>

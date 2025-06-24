@@ -1,0 +1,20 @@
+#sidebar {
+  width: 240px;
+  background-color: var(--sidebar-color);
+  border-right: 1px solid var(--border-color);
+  padding: 12px;
+  overflow-y: auto;
+  transition: all 0.3s ease;
+}
+
+.page-item {
+  padding: 8px 12px;
+  border-radius: 4px;
+  margin-bottom: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.page-item:hover {
+  background-color: var(--hover-color);
+}

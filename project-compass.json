@@ -1,0 +1,147 @@
+{
+  "Architecture": {
+    "type": "Express.js Web Application",
+    "backend": {
+      "entryPoint": "server.js",
+      "framework": "Express",
+      "templateEngine": "EJS",
+      "database": "In-memory (database.js)"
+    },
+    "frontend": {
+      "entryPoint": "views/layouts/layout.ejs",
+      "components": [
+        "Quill.js rich text editor",
+        "Custom CSS styling",
+        "EJS templates"
+      ]
+    }
+  },
+  "Files": {
+    "database.js": {
+      "purpose": "In-memory database for notes with CRUD operations",
+      "dependsOn": [],
+      "usedBy": ["server.js"],
+      "keyExports": [
+        "getNotes",
+        "getNoteById", 
+        "addNote",
+        "updateNoteTitle",
+        "updateNoteContent",
+        "deleteNote"
+      ],
+      "keyTypes": [
+        "Note {id, title, content, timestamp}"
+      ]
+    },
+    "server.js": {
+      "purpose": "Main Express server configuration and routes",
+      "dependsOn": ["database.js", "express", "express-ejs-layouts"],
+      "usedBy": [],
+      "keyExports": [],
+      "keyTypes": []
+    },
+    "public/js/editor.js": {
+      "purpose": "Initializes Quill editor and handles text formatting",
+      "dependsOn": ["Quill.js"],
+      "usedBy": ["views/singleNote.ejs"],
+      "keyExports": [],
+      "keyTypes": []
+    },
+    "public/css/styles.css": {
+      "purpose": "Main stylesheet with theme variables and global styles",
+      "dependsOn": [],
+      "usedBy": ["All views"],
+      "keyExports": [],
+      "keyTypes": []
+    },
+    "public/css/sidebar.css": {
+      "purpose": "Styles specific to sidebar component",
+      "dependsOn": ["public/css/styles.css"],
+      "usedBy": ["views/partials/sidebar.ejs"],
+      "keyExports": [],
+      "keyTypes": []
+    },
+    "views/layouts/layout.ejs": {
+      "purpose": "Main layout template for all pages",
+      "dependsOn": ["views/partials/sidebar.ejs"],
+      "usedBy": ["All views"],
+      "keyExports": [],
+      "keyTypes": []
+    },
+    "views/partials/sidebar.ejs": {
+      "purpose": "Sidebar component with navigation links",
+      "dependsOn": ["database.js"],
+      "usedBy": ["views/layouts/layout.ejs"],
+      "keyExports": [],
+      "keyTypes": []
+    },
+    "views/dashboard.ejs": {
+      "purpose": "Homepage/dashboard view",
+      "dependsOn": [],
+      "usedBy": [],
+      "keyExports": [],
+      "keyTypes": []
+    },
+    "views/notes.ejs": {
+      "purpose": "Displays all notes in a grid layout",
+      "dependsOn": ["database.js"],
+      "usedBy": [],
+      "keyExports": [],
+      "keyTypes": []
+    },
+    "views/singleNote.ejs": {
+      "purpose": "Displays and edits a single note",
+      "dependsOn": ["public/js/editor.js", "database.js"],
+      "usedBy": [],
+      "keyExports": [],
+      "keyTypes": []
+    },
+    "views/createNote.ejs": {
+      "purpose": "Form for creating new notes",
+      "dependsOn": [],
+      "usedBy": [],
+      "keyExports": [],
+      "keyTypes": []
+    },
+    "views/note404.ejs": {
+      "purpose": "Error page for non-existent notes",
+      "dependsOn": [],
+      "usedBy": [],
+      "keyExports": [],
+      "keyTypes": []
+    }
+  },
+  "DataFlows": [
+    {
+      "name": "View All Notes",
+      "steps": [
+        "1. User visits /notes route",
+        "2. server.js fetches all notes from database.js",
+        "3. Renders notes.ejs with notes data",
+        "4. notes.ejs displays notes in grid layout"
+      ]
+    },
+    {
+      "name": "Create New Note",
+      "steps": [
+        "1. User clicks 'New Note' in sidebar",
+        "2. Navigates to /notes/new route",
+        "3. Renders createNote.ejs with form",
+        "4. User submits form to POST /notes",
+        "5. server.js calls database.addNote()",
+        "6. Redirects to /notes to show updated list"
+      ]
+    },
+    {
+      "name": "Edit Note",
+      "steps": [
+        "1. User clicks note in list",
+        "2. Navigates to /notes/:id route",
+        "3. server.js fetches note from database.js",
+        "4. Renders singleNote.ejs with Quill editor",
+        "5. User edits content (auto-saved via editor.js)",
+        "6. Editor makes API calls to update content"
+      ]
+    }
+  ]
+}
