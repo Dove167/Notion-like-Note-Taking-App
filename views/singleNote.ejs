@@ -5,16 +5,16 @@
   onchange="updateTitle(this.value)"
 >
 
-<div class="toolbar">
-  <button onclick="formatText('bold')"><strong>B</strong></button>
-  <button onclick="formatText('italic')"><em>I</em></button>
-  <button onclick="formatText('underline')"><u>U</u></button>
-  <button onclick="addBlock('heading')">H</button>
-  <button onclick="addBlock('bullet')">•</button>
-  <button onclick="addBlock('number')">1.</button>
-  <button onclick="addBlock('todo')">☐</button>
+<div id="toolbar">
+  <button class="ql-bold"></button>
+  <button class="ql-italic"></button>
+  <button class="ql-underline"></button>
+  <button class="ql-strike"></button>
+  <button class="ql-list" value="ordered"></button>
+  <button class="ql-list" value="bullet"></button>
+  <button class="ql-blockquote"></button>
+  <button class="ql-code-block"></button>
 </div>
-
 <div id="editor">
   <%- note.content %>
 </div>
@@ -22,6 +22,9 @@
 <button class="theme-toggle" onclick="toggleTheme()">
   <span id="theme-icon"></span>
 </button>
+
+<link href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.snow.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.js"></script>
 
 <script src="/js/editor.js"></script>
 <script>
