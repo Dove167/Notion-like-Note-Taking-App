@@ -61,45 +61,8 @@ body {
   outline: none;
 }
 
-.note-content {
-  font-size: 1rem;
-  line-height: 1.6;
-  min-height: 100px;
-  border: none;
-  background: transparent;
-  color: var(--text-color);
-  width: 100%;
-  padding: 8px 0;
-  resize: none;
-}
-
-.note-content:focus {
-  outline: none;
-}
-
 .note-block {
   margin-bottom: 16px;
-}
-
-.toolbar {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.toolbar button {
-  background: none;
-  border: none;
-  color: var(--secondary-color);
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 4px;
-}
-
-.toolbar button:hover {
-  background-color: var(--hover-color);
 }
 
 .page-item {
