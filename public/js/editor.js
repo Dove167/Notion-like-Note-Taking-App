@@ -1,15 +1,17 @@
+
 // Wait for Quill to be available
 function initEditor() {
   const noteId = window.location.pathname.split('/')[2];
   const editorElement = document.querySelector('#editor');
   
   if (editorElement) {
+    const initialContent = editorElement.innerHTML;
+    editorElement.innerHTML = '';
     const quill = new Quill('#editor', {
       theme: 'snow',
-      modules: { toolbar: false }
+      modules: { toolbar: '#toolbar' }
     });
-    
-    quill.root.innerHTML = editorElement.innerHTML;
+    quill.clipboard.dangerouslyPasteHTML(initialContent);
     
     let saveTimeout;
     quill.on('text-change', () => {
@@ -27,11 +29,7 @@ function initEditor() {
 }
 
 // Initialize when ready
-if (typeof Quill !== 'undefined') {
-  initEditor();
-} else {
-  window.addEventListener('quill-loaded', initEditor);
-}
+initEditor();
 
 // Formatting and block helpers
 function formatText(format) {
